@@ -1,3 +1,4 @@
+// Lesson 1
 // Get list-item id element
 const listItem = document.getElementById("list-item");
 
