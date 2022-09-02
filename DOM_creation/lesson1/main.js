@@ -1,15 +1,6 @@
 // Lesson 1
-// Get list-item id element
-const listItem = document.getElementById("list-item");
 
-//create <li> elment
+const ul= document.getElementById("js-list");
 const li = document.createElement('li');
-
-// create a text
-const text = document.createTextNode('これです');
-
-// append text to li elment
-li.appendChild(text);
-
-// append li elment to id:list-item elment
-listItem.appendChild(li);
+li.textContent = 'これです';
+ul.appendChild(li);
