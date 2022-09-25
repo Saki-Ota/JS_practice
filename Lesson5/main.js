@@ -5,9 +5,8 @@ const features = [{to: "bookmark.html", img: "1.png", alt:"画像1", text: "ブ�
 
 const checkFeatures = new Promise((resolve) => {
   resolve(features);
-}).then(
-  function(value){
-    for (let feature of features ){
+}).then((value)　=> {
+    for (let feature of value ){
       const li = document.createElement('li');
       const a = document.createElement('a');
       const img = document.createElement('img');
