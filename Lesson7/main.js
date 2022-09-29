@@ -13,7 +13,8 @@ const checkFeatures = new Promise((resolve) => {
   setTimeout(() => {
     resolve(features);
   }, 3000);
-})
+});
+
 checkFeatures.then((value)　=> {
   loading.removeChild(loadingImg)
     for (let feature of value ){
