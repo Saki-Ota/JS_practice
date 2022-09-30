@@ -15,10 +15,10 @@ const removeLoading = () =>{
   removeImg.remove();
 }
 
-const createLists = (array) =>{
+const createLists = (features) =>{
   const fragment = new DocumentFragment();
 
-  for (let feature of array ){
+  for (let feature of features ){
       const li = document.createElement('li');
       const a = document.createElement('a');
       const img = document.createElement('img');
@@ -34,14 +34,14 @@ const createLists = (array) =>{
 }
 
 
-const checkFeatures = new Promise((resolve) => {
+const promiseFeatures = new Promise((resolve) => {
   addLoading();
   setTimeout(() => {
     resolve(features);
   }, 3000);
 });
 
-checkFeatures.then((value)　=> {
+promiseFeatures.then((value)　=> {
   removeLoading();
   createLists(value)
 });
