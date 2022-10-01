@@ -6,15 +6,18 @@ const addLoading = () =>{
   loading.appendChild(loadingImg)
 }
 
-const promiseReject = new Promise((resolve, reject) => {
+const promiseChecker = new Promise((resolve, reject) => {
   addLoading();
   setTimeout(() => {
     reject("The promise was rejected!");
   }, 3000);
 });
 
-promiseReject.then((error)　=> {
+promiseChecker.then((value)　=> {
+  (value) => {
+    console.log('OK', value)
+  }
 })
 .catch((error) =>{
-  console.log(error)
-})
+  console.error(error)
+});
