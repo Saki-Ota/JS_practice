@@ -13,10 +13,9 @@ const promiseChecker = new Promise((resolve, reject) => {
   }, 3000);
 });
 
-promiseChecker.then((value)　=> {
+promiseChecker.then(
   (value) => {
     console.log('OK', value)
-  }
 })
 .catch((error) =>{
   console.error(error)
