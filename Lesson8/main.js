@@ -13,8 +13,8 @@ const promiseReject = new Promise((resolve, reject) => {
   }, 3000);
 });
 
-promiseReject.then((value)　=> {
+promiseReject.then((error)　=> {
 })
-.catch((value) =>{
-  console.log(value)
+.catch((error) =>{
+  console.log(error)
 })
