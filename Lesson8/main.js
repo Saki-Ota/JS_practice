@@ -16,7 +16,8 @@ const promiseFeatures = new Promise((resolve, reject) => {
 promiseFeatures.then(
   (value) => {
     console.log('OK', value);
-})
-.catch((error) =>{
-  console.error(error);
-});
+},
+  (error) => {
+    console.error('error', error);
+  }
+)
