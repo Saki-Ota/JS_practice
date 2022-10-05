@@ -33,20 +33,15 @@ const createLists = (features) =>{
     ul.appendChild(fragment);
 };
 
-async function promiseFeatures(){
+async function asyncFeatures(){
   addLoading();
   let loadingTimeout = new Promise((resolve) =>{
     setTimeout(() => resolve(features), 3000)
   });
 
   let result = await loadingTimeout;
-  return result;
+  removeLoading();
+  createLists(result);
 }
 
-
-promiseFeatures().then(
-  function(value){
-    removeLoading();
-    createLists(value);
-  }
-);
+asyncFeatures();
