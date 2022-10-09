@@ -1,7 +1,5 @@
 const ul = document.getElementById("js-ul");
 const loading = document.getElementById("js-loading")
-const features = [{to: "bookmark.html", img: "1.png", alt:"画像1", text: "ブックマーク"},
-{to: "message.html", img: "2.png", alt:"画像2", text: "メッセージ"}];
 
 const addLoading = () =>{
   const loadingImg = document.createElement('img');
@@ -34,6 +32,8 @@ const createLists = (features) =>{
 
 const receiveData = new Promise((resolve) =>{
   addLoading();
+  const features = [{to: "bookmark.html", img: "1.png", alt:"画像1", text: "ブックマーク"},
+                    {to: "message.html", img: "2.png", alt:"画像2", text: "メッセージ"}];
   setTimeout(() => resolve(features), 3000)
 });
 
