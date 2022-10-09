@@ -11,8 +11,7 @@ const addLoading = () =>{
 };
 
 const removeLoading = () =>{
-  const removeImg = document.getElementById('loading-img')
-  removeImg.remove();
+  document.getElementById('loading-img').remove();
 };
 
 const createLists = (features) =>{
@@ -33,13 +32,13 @@ const createLists = (features) =>{
     ul.appendChild(fragment);
 };
 
-async function asyncFeatures(){
+const receiveData = new Promise((resolve) =>{
   addLoading();
-  let loadingTimeout = new Promise((resolve) =>{
-    setTimeout(() => resolve(features), 3000)
-  });
+  setTimeout(() => resolve(features), 3000)
+});
 
-  let result = await loadingTimeout;
+const asyncFeatures = async() => {
+  const result = await receiveData;
   removeLoading();
   createLists(result);
 }
