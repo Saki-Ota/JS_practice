@@ -30,6 +30,7 @@ const createLists = (features) =>{
     ul.appendChild(fragment);
 };
 
+
 const receiveData = new Promise((resolve) =>{
   addLoading();
   const features = [{to: "bookmark.html", img: "1.png", alt:"画像1", text: "ブックマーク"},
@@ -37,7 +38,7 @@ const receiveData = new Promise((resolve) =>{
   setTimeout(() => resolve(features), 3000)
 });
 
-const asyncFeatures = async() => {
+async function asyncFeatures(){
   const result = await receiveData;
   removeLoading();
   createLists(result);
