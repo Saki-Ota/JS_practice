@@ -1,7 +1,7 @@
 const ul = document.getElementById("js-ul");
-const loading = document.getElementById("js-loading")
 
 const addLoading = () =>{
+  const loading = document.getElementById("js-loading");
   const loadingImg = document.createElement('img');
   loadingImg.src = 'loading.gif';
   loadingImg.id = "loading-img";
@@ -12,8 +12,12 @@ const removeLoading = () =>{
   document.getElementById('loading-img').remove();
 };
 
-const createLists = (features) =>{
+const renderLists = (listOfFeatures) =>{
   const fragment = new DocumentFragment();
+  const features = [
+    { to: "bookmark.html", img: "1.png", alt: "画像1", text: "ブックマーク" },
+    { to: "message.html", img: "2.png", alt: "画像2", text: "メッセージ" }
+  ];
 
   for (let feature of features ){
       const li = document.createElement('li');
@@ -31,17 +35,14 @@ const createLists = (features) =>{
 };
 
 
-const receiveData = new Promise((resolve) =>{
-  addLoading();
-  const features = [{to: "bookmark.html", img: "1.png", alt:"画像1", text: "ブックマーク"},
-                    {to: "message.html", img: "2.png", alt:"画像2", text: "メッセージ"}];
-  setTimeout(() => resolve(features), 3000)
+const getData = new Promise((resolve) =>{
+  setTimeout(() => resolve(renderLists()), 3000)
 });
 
 const asyncFeatures = async () => {
+  addLoading();
   try {
-    const result = await receiveData;
-    createLists(result);
+    await getData;
   } catch(error) {
     console.error(error);
   } finally {
