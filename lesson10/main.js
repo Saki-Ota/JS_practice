@@ -41,12 +41,11 @@ const receiveData = new Promise((resolve) =>{
 const asyncFeatures = async () => {
   try {
     const result = await receiveData;
-    removeLoading();
     createLists(result);
   } catch(error) {
     console.error(error);
   } finally {
-    console.log('The process is completed!');
+    removeLoading();
   }
 };
 
