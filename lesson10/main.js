@@ -12,7 +12,7 @@ const removeLoading = () =>{
   document.getElementById('loading-img').remove();
 };
 
-const createLists = (features) =>{
+const renderLists = (features) =>{
   const fragment = new DocumentFragment();
 
   for (let feature of features ){
@@ -30,17 +30,17 @@ const createLists = (features) =>{
     ul.appendChild(fragment);
 };
 
-const getData = new Promise((resolve) =>{
+const getFeaturesData = new Promise((resolve) =>{
   setTimeout(() => resolve( [
     { to: "bookmark.html", img: "1.png", alt: "画像1", text: "ブックマーク" },
     { to: "message.html", img: "2.png", alt: "画像2", text: "メッセージ" }
   ]), 3000)
 });
 
-const asyncLoading = async () => {
+const asyncGetFeatures = async () => {
   addLoading();
   try {
-    return await getData;
+    return await getFeaturesData;
   } catch(error) {
     console.error(error);
   } finally {
@@ -49,9 +49,9 @@ const asyncLoading = async () => {
 };
 
 
-const renderLists = async () =>{
-  const result = await asyncLoading();
-  createLists(result);
+const init = async () =>{
+  const result = await asyncGetFeatures();
+  renderLists(result);
 };
 
-renderLists();
+init();
