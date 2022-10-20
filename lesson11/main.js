@@ -37,35 +37,33 @@ const displayError = (error) =>{
 }
 
 
-const getResponse = new Promise((resolve, reject) => {
-  return fetch('http://myjson.dit.upm.es/api/bins/dg7g').then(response => {
-    if(response.status !== 200){
-      resolve(response.json())
-    } else {
-      reject('Failed to get data from server!')
-    }
-  })
-})
 
-
-
-const checkResponsedData = async () => {
-  addLoading();
-
-  try{
-    return await getResponse;
-  } catch(error) {
-    console.log(error)
-    displayError(error);
-  } finally {
-    removeLoading();
+const checkResponseStatus = async () => {
+  const fetchedData = await fetch('https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300');
+  if(fetchedData.status === 200){
+    return fetchedData.json();
+  } else {
+    return Promise.reject(new Error('Failed to fetch data from server!'));
   }
 }
 
 
-const init = async () =>{
-  const result = await checkResponsedData();
-  renderLists(result.data);
+const displayListOrError= async () =>{
+ await checkResponseStatus()
+ .then(json => {
+     renderLists(json.data)
+    })
+ .catch(error => {
+    displayError(error)
+  })
 }
+
+const init = () =>{
+  addLoading();
+  setTimeout(() => {
+    displayListOrError();
+    removeLoading();
+  }, 3000);
+};
 
 init();
