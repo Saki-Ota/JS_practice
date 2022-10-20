@@ -34,7 +34,7 @@ const displayError = (error) =>{
   const li = document.createElement('li');
   li.textContent = error;
   ul.appendChild(li);
-}
+};
 
 
 
@@ -45,18 +45,18 @@ const checkResponseStatus = async () => {
   } else {
     return Promise.reject(new Error('Failed to fetch data from server!'));
   }
-}
+};
 
 
 const displayListOrError= async () =>{
  await checkResponseStatus()
  .then(json => {
-     renderLists(json.data)
+     renderLists(json.data);
     })
  .catch(error => {
-    displayError(error)
+    displayError(error);
   })
-}
+};
 
 const init = () =>{
   addLoading();
