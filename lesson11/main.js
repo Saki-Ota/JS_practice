@@ -1,6 +1,6 @@
 const ul = document.getElementById("js-ul");
 
-const addLoading = () =>{
+const renderLoading = () =>{
   const loading = document.getElementById("js-loading");
   const loadingImg = document.createElement('img');
   loadingImg.src = 'loading.gif';
@@ -59,7 +59,7 @@ const displayListOrError= async () =>{
 };
 
 const init = () =>{
-  addLoading();
+  renderLoading();
   displayListOrError();
   removeLoading();
 };
