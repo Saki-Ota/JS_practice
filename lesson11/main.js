@@ -1,5 +1,3 @@
-//コメントは自分の理解のために残しているので無視してください。
-
 const ul = document.getElementById("js-ul");
 
 const renderLoading = () => {
@@ -73,7 +71,7 @@ const getData = async (api) => {
 const displayList = async () => {
   let res = await getData( // await should be used to wait for the getData() returns before executing if statement.
     "https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300"
-  );// if getData() succssfully fetches data then it returns a json object. 
+  );// if getData() succssfully fetches data then it returns a json object.
   if (res.data) { //check if response data exists.
     renderLists(res.data);
   } else {
