@@ -33,15 +33,15 @@ const renderLists = (features) => {
   ul.appendChild(fragment);
 };
 
-//Define the function to show information (not only error handling).
-//In this lesson, this function is used to display the passed message to handle unexpected errors(not include fetch error)
+//Define the function to show information.
+//In this lesson, this function is used to display the passed message for unexpected errors(not include fetch error)
 const displayInfo = (info) => {
   const li = document.createElement('li');
   if (typeof info === 'string') {
     li.texteContent = info;
     ul.appendChild(li);
   }
-  throw new Error('Please pass a string value'); //if the passed argument is not string, such as turthy, it throws an error message in console.
+  throw new Error('Please pass a string value'); //if the passed argument is not a string, such as turthy value, it throws the error message in console.
 };
 
 const displayErrorInfo = (error) => {
@@ -51,7 +51,7 @@ const displayErrorInfo = (error) => {
 };
 
 //Define a reusable function to fetch api and check response status
-//Do not pass an API in this function, so that the function can be used more flexibly.
+//Do not pass an actual API(URL) in this function, so that the function can be used more flexibly.
 const getData = async (api) => {
   let res = null;
   try {
@@ -61,9 +61,9 @@ const getData = async (api) => {
     displayErrorInfo(e); //fetch() failed
   }
   if (res.ok) {
-    return res.json(); //if response status is ok, then convert response to json format
+    return res.json(); //if response status is ok, then it converts response to json format
   } else {
-    displayErrorInfo(res); // if response status is not ok, then display error
+    displayErrorInfo(res); // if response status is not ok, then it displays an error
   }
 };
 //if fetch() was successful getData() returns a json object.
@@ -75,7 +75,7 @@ const displayList = async () => {
   if (res.data) { //check if response data exists.
     renderLists(res.data);
   } else {
-    displayInfo("no data"); //as this if statement checks if data exists in returned json obeject or not, passed string explains the reason of the error/unexpected behaviour.
+    displayInfo("no data"); //as this if statement checks if data exists in the returned json obeject or not, the passed string explains the reason for the error/unexpected behaviour.
   }
 };
 
