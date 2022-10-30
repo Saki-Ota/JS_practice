@@ -38,8 +38,9 @@ const renderLists = (features) => {
 const displayInfo = (info) => {
   const li = document.createElement('li');
   if (typeof info === 'string') {
-    li.texteContent = info;
+    li.textContent = info;
     ul.appendChild(li);
+    return console.log(info);
   }
   throw new Error('Please pass a string value'); //if the passed argument is not a string, such as turthy value, it throws the error message in console.
 };
