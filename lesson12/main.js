@@ -81,4 +81,5 @@ const init = () => {
   removeLoading();
 };
 
-btn.addEventListener("click", init)
+btn.addEventListener("click", init);
+
