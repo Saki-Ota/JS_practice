@@ -1,4 +1,5 @@
 const ul = document.getElementById("js-ul");
+const btn = document.getElementById("js-button")
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -72,9 +73,12 @@ const displayList = async () => {
   }
 };
 
-const onButtonClick = () => {
-  document.getElementById('js-button').remove();
+
+const init = () => {
+  btn.remove();
   renderLoading();
   displayList();
   removeLoading();
-}
+};
+
+btn.addEventListener("click", init)
