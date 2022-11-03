@@ -66,6 +66,8 @@ const getData = async (api) => {
 
 const displayList = async () => {
   let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
+  removeLoading();
+
   if (res.data) {
     renderLists(res.data);
   } else {
@@ -73,13 +75,10 @@ const displayList = async () => {
   }
 };
 
-
 const init = () => {
   btn.remove();
   renderLoading();
   displayList();
-  removeLoading();
 };
 
 btn.addEventListener("click", init);
-
