@@ -1,0 +1,13 @@
+{
+  "name": "tailwind",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.2.2"
+  },
+
+  "scripts": {
+    "dev": "tailwindcss -i CSS/styles.css -o CSS/styles_dist.css -w"
+    }
+}
