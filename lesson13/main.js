@@ -3,8 +3,9 @@ const modal = document.getElementById("js-modal");
 const closeBtn = document.getElementById("js-close-btn");
 const overlay = document.getElementById("js-overlay");
 const ul = document.getElementById("js-ul");
-const openListBtn = document.getElementById("js-open-list-button")
-
+const openListBtn = document.getElementById("js-open-list-button");
+const p = document.getElementById("js-p");
+console.log(p);
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -40,17 +41,17 @@ const renderLists = (features) => {
 };
 
 const displayInfo = (info) => {
-  const li = document.createElement('li');
-  if (typeof info === 'string') {
+  const li = document.createElement("li");
+  if (typeof info === "string") {
     li.textContent = info;
     ul.appendChild(li);
     return console.log(info);
   }
-  throw new Error('Please pass a string value');
+  throw new Error("Please pass a string value");
 };
 
 const displayErrorInfo = (error) => {
-  const li = document.createElement('li');
+  const li = document.createElement("li");
   li.textContent = `error: ${JSON.stringify(error)}`;
   ul.appendChild(li);
 };
@@ -70,7 +71,9 @@ const getData = async (api) => {
 };
 
 const displayList = async () => {
-  let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
+  let res = await getData(
+    "https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300"
+  );
   removeLoading();
 
   if (res.data) {
@@ -80,14 +83,14 @@ const displayList = async () => {
   }
 };
 
-const displayModal= () => {
-  modal.style.display= "block";
-  overlay.style.display= "block";
+const displayModal = () => {
+  modal.style.display = "block";
+  overlay.style.display = "block";
 };
 
 const closeModal = () => {
-  modal.style.display="none";
-  overlay.style.display="none";
+  modal.style.display = "none";
+  overlay.style.display = "none";
 };
 
 const init = () => {
@@ -99,8 +102,7 @@ const init = () => {
   displayList();
 };
 
-
 openListBtn.addEventListener("click", init);
-openBtn.addEventListener('click', displayModal);
-closeBtn.addEventListener('click', closeModal);
-overlay.addEventListener('click', closeModal);
+openBtn.addEventListener("click", displayModal);
+closeBtn.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
