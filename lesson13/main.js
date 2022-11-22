@@ -14,9 +14,7 @@ const renderLoading = () => {
   loading.appendChild(loadingImg);
 };
 
-const removeLoading = () => {
-  document.getElementById("loading-img").remove();
-};
+const removeLoading = () => document.getElementById("loading-img").remove();
 
 const renderLists = (features) => {
   const fragment = new DocumentFragment();
@@ -81,6 +79,7 @@ const displayList = async () => {
 };
 
 const displayModal= () => {
+  openBtn.remove()
   modal.style.display= "block";
   overlay.style.display= "block";
 };
@@ -94,7 +93,6 @@ const init = () => {
   openListBtn.remove();
   modal.remove();
   overlay.remove();
-  openBtn.remove();
   renderLoading();
   displayList();
 };
