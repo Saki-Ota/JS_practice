@@ -1,9 +1,9 @@
-const openBtn = document.getElementById("js-open-modal-btn");
+const openButton = document.getElementById("js-open-modal-btn");
 const modal = document.getElementById("js-modal");
-const closeBtn = document.getElementById("js-close-btn");
+const closeButton = document.getElementById("js-close-btn");
 const overlay = document.getElementById("js-overlay");
 const ul = document.getElementById("js-ul");
-const openListBtn = document.getElementById("js-open-list-button")
+const openListButton = document.getElementById("js-open-list-button")
 
 
 const renderLoading = () => {
@@ -14,7 +14,9 @@ const renderLoading = () => {
   loading.appendChild(loadingImg);
 };
 
-const removeLoading = () => document.getElementById("loading-img").remove();
+const removeLoading = () => {
+  document.getElementById("loading-img").remove();
+};
 
 const renderLists = (features) => {
   const fragment = new DocumentFragment();
@@ -89,15 +91,16 @@ const closeModal = () => {
 };
 
 const init = () => {
-  openListBtn.remove();
+  openListButton.remove();
   modal.remove();
   overlay.remove();
+  openButton.remove();
   renderLoading();
   displayList();
 };
 
 
-openListBtn.addEventListener("click", init);
-openBtn.addEventListener('click', displayModal);
-closeBtn.addEventListener('click', closeModal);
+openListButton.addEventListener("click", init);
+openButton.addEventListener('click', displayModal);
+closeButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
