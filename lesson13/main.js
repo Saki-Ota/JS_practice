@@ -79,7 +79,6 @@ const displayList = async () => {
 };
 
 const displayModal= () => {
-  openBtn.remove()
   modal.style.display= "block";
   overlay.style.display= "block";
 };
