@@ -1,6 +1,6 @@
-const openButton = document.getElementById("js-open-modal-btn");
+const openButton = document.getElementById("js-open-modal-button");
 const modal = document.getElementById("js-modal");
-const closeButton = document.getElementById("js-close-btn");
+const closeButton = document.getElementById("js-close-button");
 const overlay = document.getElementById("js-overlay");
 const ul = document.getElementById("js-ul");
 const openListButton = document.getElementById("js-open-list-button")
@@ -8,27 +8,25 @@ const openListButton = document.getElementById("js-open-list-button")
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
-  const loadingImg = document.createElement("img");
-  loadingImg.src = "img/loading.gif";
-  loadingImg.id = "loading-img";
-  loading.appendChild(loadingImg);
+  const loadingImage = document.createElement("img");
+  loadingImage.src = "img/loading.gif";
+  loadingImage.id = "loading-image";
+  loading.appendChild(loadingImage);
 };
 
-const removeLoading = () => {
-  document.getElementById("loading-img").remove();
-};
+const removeLoading = () => document.getElementById("loading-image").remove();
 
-const renderLists = (features) => {
+const renderLists = (items) => {
   const fragment = new DocumentFragment();
 
-  for (let feature of features) {
+  for (let item of items) {
     const li = document.createElement("li");
     const a = document.createElement("a");
     const img = document.createElement("img");
-    a.href = feature.to;
-    a.textContent = feature.text;
-    img.src = feature.img;
-    img.alt = feature.alt;
+    a.href = item.to;
+    a.textContent = item.text;
+    img.src = item.img;
+    img.alt = item.alt;
 
     fragment
       .appendChild(li)
