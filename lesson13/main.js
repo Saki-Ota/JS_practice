@@ -67,17 +67,6 @@ const getData = async (api) => {
   }
 };
 
-const displayList = async () => {
-  let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
-  removeLoading();
-
-  if (res.data) {
-    renderLists(res.data);
-  } else {
-    displayInfo("no data");
-  }
-};
-
 const displayModal= () => {
   modal.style.display= "block";
   overlay.style.display= "block";
@@ -88,17 +77,24 @@ const closeModal = () => {
   overlay.style.display="none";
 };
 
-const init = () => {
-  openListButton.remove();
-  modal.remove();
-  overlay.remove();
+const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
+
+const displayList = async () => {
   openButton.remove();
+  removeModal();
+  
   renderLoading();
-  displayList();
+  let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
+  removeLoading();
+
+  if (res.data) {
+    renderLists(res.data);
+  } else {
+    displayInfo("no data");
+  }
 };
 
-
-openListButton.addEventListener("click", init);
+openListButton.addEventListener("click", displayList);
 openButton.addEventListener('click', displayModal);
 closeButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
