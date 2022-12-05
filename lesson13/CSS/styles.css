@@ -2,18 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-.button {
-    @apply bg-teal-600 hover:bg-teal-400 text-white font-semibold hover:text-white py-2 px-4 border border-teal-500 hover:border-transparent rounded top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed 
+@layer components {
+    .button {
+        @apply bg-teal-600 hover:bg-teal-400 text-white font-semibold hover:text-white py-2 px-4 border border-teal-500 hover:border-transparent rounded top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fixed 
+    }
+    
+    .overlay {
+        @apply hidden fixed top-0 left-0 w-full h-full bg-slate-200 opacity-50
+    }
+    
+    .modal {
+        @apply hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-52 bg-rose-100 border border-slate-300 rounded
+    }
+    
+    .close-button{
+        @apply absolute top-2 right-5 cursor-pointer
+    }
 }
-
-.overlay {
-    @apply hidden fixed top-0 left-0 w-full h-full bg-slate-200 opacity-50
-}
-
-.modal {
-    @apply hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-52 bg-rose-100 border border-slate-300 rounded
-}
-
-.close-button{
-    @apply absolute top-2 right-5 cursor-pointer
-}
+  
