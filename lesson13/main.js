@@ -80,10 +80,6 @@ const closeModal = () => {
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
 
 const displayList = async () => {
-  openButton.remove();
-  removeModal();
-  
-  renderLoading();
   let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
   removeLoading();
 
@@ -94,7 +90,16 @@ const displayList = async () => {
   }
 };
 
-openListButton.addEventListener("click", displayList);
+const init = () => {
+  renderLoading();
+  displayList();
+}
+
+openListButton.addEventListener("click", () => {
+  openButton.remove();
+  removeModal();
+  init();
+});
 openButton.addEventListener('click', displayModal);
 closeButton.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
