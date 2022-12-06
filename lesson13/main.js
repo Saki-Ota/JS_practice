@@ -90,15 +90,10 @@ const displayList = async () => {
   }
 };
 
-const init = () => {
+openListButton.addEventListener("click", () => {
+  removeModal();
   renderLoading();
   displayList();
-}
-
-openListButton.addEventListener("click", () => {
-  openButton.remove();
-  removeModal();
-  init();
 });
 openButton.addEventListener('click', displayModal);
 closeButton.addEventListener('click', closeModal);
