@@ -80,6 +80,7 @@ const closeModal = () => {
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
 
 const displayList = async () => {
+  renderLoading();
   let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
   removeLoading();
 
@@ -92,7 +93,6 @@ const displayList = async () => {
 
 openListButton.addEventListener("click", () => {
   removeModal();
-  renderLoading();
   displayList();
 });
 openButton.addEventListener('click', displayModal);
