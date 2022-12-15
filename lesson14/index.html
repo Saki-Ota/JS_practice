@@ -15,7 +15,11 @@
         <div id="js-overlay" class="overlay"></div>
         <div id="js-modal" class="modal">
           <div id="js-close-button" class="close-button">X</div>
-          <button id="js-open-list-button" class="button">Click!</button>
+          <p class="modal-title">Please enter a number</p>
+          <input type="text" id="js-number-input" class="number-input" >
+          <p id="js-validation-number" class="modal-validation" style="display: none;">Input value must be a number</p>
+          <p id="js-validation-empty" class="modal-validation" style="display: none;">Input field cannot be empty</p>
+          <button id="js-open-list-button" class="modal-button">Click!</button>
         </div>
       </div>
       <div id="js-loading"></div>

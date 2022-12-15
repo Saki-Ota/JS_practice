@@ -2,9 +2,9 @@ const openButton = document.getElementById("js-open-modal-button");
 const modal = document.getElementById("js-modal");
 const closeButton = document.getElementById("js-close-button");
 const overlay = document.getElementById("js-overlay");
-const ul = document.getElementById("js-ul");
 const openListButton = document.getElementById("js-open-list-button")
-
+const ul = document.getElementById("js-ul");
+const input =document.getElementById("js-number-input")
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -67,18 +67,6 @@ const getData = async (api) => {
   }
 };
 
-const displayModal= () => {
-  modal.style.display= "block";
-  overlay.style.display= "block";
-};
-
-const closeModal = () => {
-  modal.style.display="none";
-  overlay.style.display="none";
-};
-
-const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
-
 const displayList = async () => {
   renderLoading();
   let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
@@ -91,10 +79,44 @@ const displayList = async () => {
   }
 };
 
-openListButton.addEventListener("click", () => {
+const displayModal= () => {
+  modal.style.display= "block";
+  overlay.style.display= "block";
+};
+
+const closeModal = () => {
+  resetInput()
+  modal.style.display="none";
+  overlay.style.display="none";
+};
+
+const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
+
+const resetInput = () => {
+  input.value = '';
+  document.getElementById('js-validation-empty').style.display="none";
+  document.getElementById("js-validation-number").style.display="none";
+};
+
+openListButton.addEventListener("click", (e) => {
+  const userInput = input.value
+  if(userInput === ''){
+   document.getElementById('js-validation-empty').style.display="block";
+   return e.preventDefault()
+  } else if (!userInput.match(/^\d+$/)){
+    document.getElementById("js-validation-number").style.display="block";
+    return e.preventDefault()
+  } else {
+    console.log(userInput)
+  }
   removeModal();
   displayList();
 });
-openButton.addEventListener('click', displayModal);
-closeButton.addEventListener('click', closeModal);
-overlay.addEventListener('click', closeModal);
+
+input.addEventListener("click", (e)=>{
+  resetInput();
+  e.preventDefault()
+})
+openButton.addEventListener("click", displayModal);
+closeButton.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
