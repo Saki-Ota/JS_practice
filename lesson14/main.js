@@ -115,7 +115,6 @@ openListButton.addEventListener("click", (e) => {
 
 numberInput.addEventListener("click", (e)=>{
   resetInput();
-  e.preventDefault()
 })
 openButton.addEventListener("click", displayModal);
 closeButton.addEventListener("click", closeModal);
