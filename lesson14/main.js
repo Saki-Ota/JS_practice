@@ -99,7 +99,7 @@ const resetInput = () => {
   validationMessage.style.display ="none";
 };
 
-openListButton.addEventListener("click", (e) => {
+openListButton.addEventListener("click", () => {
   const userInput = numberInput.value;
   if(userInput === ''){
    validationMessage.textContent = "Input feild cannot be empty";
@@ -113,7 +113,7 @@ openListButton.addEventListener("click", (e) => {
   }
 });
 
-numberInput.addEventListener("click", (e)=>{
+numberInput.addEventListener("click", ()=>{
   resetInput();
 })
 openButton.addEventListener("click", displayModal);
