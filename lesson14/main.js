@@ -4,7 +4,8 @@ const closeButton = document.getElementById("js-close-button");
 const overlay = document.getElementById("js-overlay");
 const openListButton = document.getElementById("js-open-list-button")
 const ul = document.getElementById("js-ul");
-const input =document.getElementById("js-number-input")
+const numberInput =document.getElementById("js-number-input")
+const validationMessage = document.getElementById("js-validation");
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -67,13 +68,14 @@ const getData = async (api) => {
   }
 };
 
-const displayList = async () => {
+const displayList = async (userInput) => {
   renderLoading();
   let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
   removeLoading();
 
   if (res.data) {
     renderLists(res.data);
+    console.log(userInput)
   } else {
     displayInfo("no data");
   }
@@ -93,27 +95,25 @@ const closeModal = () => {
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
 
 const resetInput = () => {
-  input.value = '';
-  document.getElementById('js-validation-empty').style.display="none";
-  document.getElementById("js-validation-number").style.display="none";
+  numberInput.value = '';
+  validationMessage.style.display ="none";
 };
 
 openListButton.addEventListener("click", (e) => {
-  const userInput = input.value
+  const userInput = numberInput.value;
   if(userInput === ''){
-   document.getElementById('js-validation-empty').style.display="block";
-   return e.preventDefault()
+   validationMessage.textContent = "Input feild cannot be empty";
+   validationMessage.style.display="block";
   } else if (!userInput.match(/^\d+$/)){
-    document.getElementById("js-validation-number").style.display="block";
-    return e.preventDefault()
+    validationMessage.textContent = "Input value must be a number";
+    validationMessage.style.display="block";
   } else {
-    console.log(userInput)
+    removeModal();
+    displayList(userInput);
   }
-  removeModal();
-  displayList();
 });
 
-input.addEventListener("click", (e)=>{
+numberInput.addEventListener("click", (e)=>{
   resetInput();
   e.preventDefault()
 })
