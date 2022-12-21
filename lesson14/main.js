@@ -99,18 +99,23 @@ const resetInput = () => {
   validationMessage.style.display ="none";
 };
 
+const displayValidation = (message) => {
+  validationMessage.textContent = `${message}`;
+  validationMessage.style.display="block";
+}
+
 openListButton.addEventListener("click", () => {
   const userInput = numberInput.value;
   if(userInput === ''){
-   validationMessage.textContent = "Input feild cannot be empty";
-   validationMessage.style.display="block";
-  } else if (!userInput.match(/^\d+$/)){
-    validationMessage.textContent = "Input value must be a number";
-    validationMessage.style.display="block";
-  } else {
-    removeModal();
-    displayList(userInput);
+    displayValidation("Input feild cannot be empty");
+    return;
   }
+  if (!userInput.match(/^\d+$/)){
+    displayValidation("Input value must be a number");
+    return;
+  }
+  removeModal();
+  displayList(userInput);
 });
 
 numberInput.addEventListener("click", ()=>{
