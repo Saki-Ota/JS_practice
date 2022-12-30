@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./style.css"  />
+    <script src="./main.js" defer></script>
+    <title>TerraceTechフロントエンドエンジニア養成所</title>
+  </head>
+  <body>
+      <div id="js-modal-wrapper">
+        <button id="js-open-modal-button" class="button">Open Modal</button>
+        <div id="js-overlay" class="overlay"></div>
+        <div id="js-modal" class="modal">
+          <div id="js-close-button" class="close-button">X</div>
+          <p class="modal-title">Please enter a number</p>
+          <div class="flexbox">
+            <input type="text" id="js-number-input" class="input-field">
+            <p id="js-validation" class="item modal-validation"></p>
+          </div>
+          <button id="js-open-list-button" class="modal-button">Click!</button>
+        </div>
+      </div>
+      <div id="js-loading"></div>
+      <ul id="js-ul"></ul>
+  </body>
+</html>
