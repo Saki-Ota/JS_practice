@@ -6,7 +6,8 @@ const openListButton = document.getElementById("js-open-list-button")
 const ul = document.getElementById("js-ul");
 const form = document.getElementById("js-form");
 const errorMessages = document.getElementsByClassName("js-error-message");
-const inputFields = document.getElementsByTagName("input");
+const userNumberInput = document.getElementById("js-number-input");
+const userNameInput = document.getElementById("js-name-input");
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -88,6 +89,8 @@ const displayModal= () => {
 };
 
 const resetInput = () => {
+  const inputFields = document.getElementsByClassName("js-input");
+
   for (errorMessage of errorMessages) {
     errorMessage.textContent =""
   };
@@ -111,26 +114,25 @@ const displayValidation = (message) => {
 }
 
 const checkValidation = (id, serial, message) => {
-  if(id === "") {
+  if(id.value === "") {
     errorMessages[serial].textContent = message;
-    inputFields[serial].style.border = "2px red solid";
+    id.style.border = "2px red solid";
   } else {
     errorMessages[serial].textContent = "";
-    inputFields[serial].style = "border border-slate-600";
+    id.style = "border border-slate-600";
   }
-}
+};
 
 openButton.addEventListener("click", displayModal);
 closeButton.addEventListener("click", closeModal);
 overlay.addEventListener("click", closeModal);
 
-form.addEventListener("submit", (e) => {
-  const userNumberInput = document.getElementById("js-number-input").value;
-  const userNameInput = document.getElementById("js-name-input").value;
-  
-  if(userNameInput !== "" && userNumberInput !== ""){
+form.addEventListener("submit", (e) => { 
+  const userNumberInput = document.getElementById("js-number-input");
+  const userNameInput = document.getElementById("js-name-input");
+  if(userNameInput.value !== "" && userNumberInput.value !== ""){
     removeModal();
-    displayList(userNameInput, userNumberInput);
+    displayList(userNameInput.value, userNumberInput.value);
   }
   e.preventDefault();
   checkValidation(userNameInput, 0, "Name cannot be blank");
