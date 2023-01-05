@@ -4,8 +4,9 @@ const closeButton = document.getElementById("js-close-button");
 const overlay = document.getElementById("js-overlay");
 const openListButton = document.getElementById("js-open-list-button")
 const ul = document.getElementById("js-ul");
-const numberInput =document.getElementById("js-number-input")
-const validationMessage = document.getElementById("js-validation");
+const form = document.getElementById("js-form");
+const errorMessages = document.getElementsByClassName("js-error-message");
+const inputFields = document.getElementsByTagName("input");
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -68,14 +69,14 @@ const getData = async (api) => {
   }
 };
 
-const displayList = async (userInput) => {
+const displayList = async (name, number) => {
   renderLoading();
   let res = await getData("https://mocki.io/v1/ee8a871e-2b46-4a91-b565-4d6f9216f300");
   removeLoading();
 
   if (res.data) {
     renderLists(res.data);
-    console.log(userInput)
+    console.log(`${name} ${number}`)
   } else {
     displayInfo("no data");
   }
@@ -86,41 +87,52 @@ const displayModal= () => {
   overlay.style.display= "block";
 };
 
+const resetInput = () => {
+  for (errorMessage of errorMessages) {
+    errorMessage.textContent =""
+  };
+  for(inputField of inputFields) {
+    inputField.value = ""
+    inputField.style = "border border-slate-600 "
+  };
+}
+
 const closeModal = () => {
-  resetInput()
   modal.style.display="none";
   overlay.style.display="none";
+  resetInput();
 };
 
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
-
-const resetInput = () => {
-  numberInput.value = '';
-  validationMessage.style.display ="none";
-};
 
 const displayValidation = (message) => {
   validationMessage.textContent = `${message}`;
   validationMessage.style.display="block";
 }
 
-openListButton.addEventListener("click", () => {
-  const userInput = numberInput.value;
-  if(userInput === ''){
-    displayValidation("Input feild cannot be empty");
-    return;
+const checkValidation = (id, serial, message) => {
+  if(id === "") {
+    errorMessages[serial].textContent = message;
+    inputFields[serial].style.border = "2px red solid";
+  } else {
+    errorMessages[serial].textContent = "";
+    inputFields[serial].style = "border border-slate-600";
   }
-  if (!userInput.match(/^\d+$/)){
-    displayValidation("Input value must be a number");
-    return;
-  }
-  removeModal();
-  displayList(userInput);
-});
+}
 
-numberInput.addEventListener("click", ()=>{
-  resetInput();
-})
 openButton.addEventListener("click", displayModal);
 closeButton.addEventListener("click", closeModal);
 overlay.addEventListener("click", closeModal);
+
+form.addEventListener("submit", (e) => {
+  const userNumberInput = document.getElementById("js-number-input").value;
+  const userNameInput = document.getElementById("js-name-input").value;
+  
+  if(userNameInput !== "" && userNumberInput !== ""){
+    removeModal();
+    displayList(userNameInput, userNumberInput);
+  }
+  e.preventDefault();
+  checkValidation(userNameInput, 0, "Name cannot be blank");
+  checkValidation(userNumberInput, 1, "Number cannot be blank");
+});
