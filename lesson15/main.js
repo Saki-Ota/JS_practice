@@ -108,15 +108,11 @@ const closeModal = () => {
 
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
 
-const displayValidation = (message) => {
-  validationMessage.textContent = `${message}`;
-  validationMessage.style.display="block";
-}
-
 const checkValidation = (id, serial, message) => {
   if(id.value === "") {
     errorMessages[serial].textContent = message;
     id.style.border = "2px red solid";
+    id.style.margin = "0px";
   } else {
     errorMessages[serial].textContent = "";
     id.style = "border border-slate-600";
