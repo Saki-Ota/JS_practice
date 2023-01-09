@@ -2,12 +2,8 @@ const openButton = document.getElementById("js-open-modal-button");
 const modal = document.getElementById("js-modal");
 const closeButton = document.getElementById("js-close-button");
 const overlay = document.getElementById("js-overlay");
-const openListButton = document.getElementById("js-open-list-button")
 const ul = document.getElementById("js-ul");
 const form = document.getElementById("js-form");
-const errorMessages = document.getElementsByClassName("js-error-message");
-const userNumberInput = document.getElementById("js-number-input");
-const userNameInput = document.getElementById("js-name-input");
 
 const renderLoading = () => {
   const loading = document.getElementById("js-loading");
@@ -90,13 +86,14 @@ const displayModal= () => {
 
 const resetInput = () => {
   const inputFields = document.getElementsByClassName("js-input");
+  const errorMessages = document.getElementsByClassName("js-error-message");
 
-  for (errorMessage of errorMessages) {
-    errorMessage.textContent =""
+  for (const errorMessage of errorMessages) {
+    errorMessage.textContent ="";
   };
-  for(inputField of inputFields) {
-    inputField.value = ""
-    inputField.style = "border border-slate-600 "
+  for(const inputField of inputFields) {
+    inputField.value = "";
+    inputField.classList.remove("error-border");
   };
 }
 
@@ -108,14 +105,13 @@ const closeModal = () => {
 
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
 
-const checkValidation = (id, serial, message) => {
-  if(id.value === "") {
-    errorMessages[serial].textContent = message;
-    id.style.border = "2px red solid";
-    id.style.margin = "0px";
+const checkValidation = (inputArea, error, message) => {
+  if(inputArea.value === "") {
+    error.textContent = message;
+    inputArea.classList.add("error-border");
   } else {
-    errorMessages[serial].textContent = "";
-    id.style = "border border-slate-600";
+    error.textContent = "";
+    inputArea.classList.remove("error-border")
   }
 };
 
@@ -126,11 +122,14 @@ overlay.addEventListener("click", closeModal);
 form.addEventListener("submit", (e) => { 
   const userNumberInput = document.getElementById("js-number-input");
   const userNameInput = document.getElementById("js-name-input");
-  if(userNameInput.value !== "" && userNumberInput.value !== ""){
+  const nameError = document.getElementById("js-name-error");
+  const numberError = document.getElementById("js-number-error");
+
+  if(userNameInput.value.trim() !== "" && userNumberInput.value.trim() !== ""){
     removeModal();
     displayList(userNameInput.value, userNumberInput.value);
-  }
+  };
   e.preventDefault();
-  checkValidation(userNameInput, 0, "Name cannot be blank");
-  checkValidation(userNumberInput, 1, "Number cannot be blank");
+  checkValidation(userNameInput, nameError, "Name cannot be blank");
+  checkValidation(userNumberInput, numberError, "Number cannot be blank");
 });
