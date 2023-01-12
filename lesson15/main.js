@@ -106,7 +106,7 @@ const closeModal = () => {
 const removeModal = () =>  document.getElementById("js-modal-wrapper").remove();
 
 const checkValidation = (inputArea, error, message) => {
-  if(inputArea.value === "") {
+  if(inputArea.value.trim() === "") {
     error.textContent = message;
     inputArea.classList.add("error-border");
   } else {
