@@ -10,16 +10,26 @@
   </head>
   <body>
       <div id="js-modal-wrapper">
-        <button id="js-open-modal-button" class="button">Open Modal</button>
-        <div id="js-overlay" class="overlay"></div>
-        <div id="js-modal" class="modal">
-          <div id="js-close-button" class="close-button">X</div>
-          <p class="modal-title">Please enter a number</p>
-          <div class="flexbox">
-            <input type="text" id="js-number-input" class="input-field">
-            <p id="js-validation" class="item modal-validation"></p>
+        <button id="js-open-modal-button" class="button rounded centering">Open Modal</button>
+        <div id="js-overlay" class="hidden fixed top-0 left-0 w-full h-full bg-slate-500 opacity-50"></div>
+        <div id="js-modal" class="hidden centering lg:w-1/3 lg:h-2/3 md:w-1/2 md:h-2/3 w-3/4 h-2/3 bg-white border border-slate-300 rounded overflow-scroll">
+          <div id="js-close-button" class="absolute top-2 right-5 cursor-pointer">X</div>
+          <div class="container">
+            <form id="js-form" class="flex flex-col justify-center p-14 ">
+              <p class="lg:text-2xl md:text-xl text-base text-center  lg:mb-4 md:mb-3 mb-2">Please enter your name and a number</p>
+              <div>
+                <lable for="name" class="label">Your name</lable>
+                <input type="text" id="js-name-input" placeholder="John Doe" class="js-input input-field">
+                <div id="js-name-error" class="js-error-message error-message"></div>
+              </div>
+              <div>
+                <lable for="name" class="label">Number</lable>
+                <input type="number" id="js-number-input" placeholder="12345" class="js-input input-field">
+                <div id="js-number-error" class="js-error-message error-message"></div>
+              </div>
+              <button id="js-open-list-button" class="button mt-10">Click!</button>
+            </form>
           </div>
-          <button id="js-open-list-button" class="modal-button">Click!</button>
         </div>
       </div>
       <div id="js-loading"></div>
