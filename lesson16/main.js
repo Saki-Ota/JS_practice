@@ -14,8 +14,8 @@ const displayInfo = (info) => {
 };
 
 const displayErrorInfo = (error) => {
-    console.log(error)
-  li.textContent = `Failed to get error due to ${error}.`;
+  console.log(error);
+  li.textContent = `Failed to get data from server`;
   ul.appendChild(li);
 };
 
@@ -40,7 +40,7 @@ const displayItems = async (callBackFunction) => {
   if (res.data) {
     callBackFunction(res.data);
   } else {
-    displayInfo("no data")
+    displayInfo("no data");
   }
 };
 
@@ -61,7 +61,7 @@ const activateFirstTab = () => {
   tabs[0].classList.add("active");
 };
 
-// this function will be modified to render articles, comments, an image and icons. 
+// this function will be modified to render articles, comments, an image and icons.
 const renderArticles = (items) => {
   const fragment = new DocumentFragment();
   const articleContainerDiv = document.createElement("div");
@@ -69,7 +69,7 @@ const renderArticles = (items) => {
   for (let item of items) {
     const article = document.createElement("div");
     article.classList.add("tab-content");
-    article.textContent = item.category
+    article.textContent = item.category;
     fragment.appendChild(article);
   }
   articleContainerDiv.appendChild(fragment);
@@ -82,8 +82,8 @@ const activateFirstArticleContent = () => {
 };
 
 const removeClassList = (className, index) => {
-    document.getElementsByClassName(className)[index].classList.remove(className)
-}
+  document.getElementsByClassName(className)[index].classList.remove(className);
+};
 
 const displayTabsAndContents = async () => {
   await displayItems(renderTabs);
@@ -94,14 +94,14 @@ const displayTabsAndContents = async () => {
 
   listOfTabs.forEach((tab) => {
     tab.addEventListener("click", (e) => {
-      removeClassList("active", 0)
+      removeClassList("active", 0);
       tab.classList.add("active");
 
       const indexNumber = listOfTabs.findIndex((tabContent) =>
         tabContent.classList.contains("active")
       );
 
-      removeClassList("show", 0)
+      removeClassList("show", 0);
       listOfContetns[indexNumber].classList.add("show");
     });
   });
