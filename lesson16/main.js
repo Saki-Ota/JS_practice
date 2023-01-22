@@ -4,15 +4,6 @@ const li = document.createElement("li");
 const contetns = document.getElementsByClassName("tab-content");
 const tabs = document.getElementsByClassName("tab-item");
 
-const displayInfo = (info) => {
-  if (typeof info === "string") {
-    li.textContent = info;
-    ul.appendChild(li);
-    return console.log(info);
-  }
-  throw new Error("Please pass a string value");
-};
-
 const displayErrorInfo = (error) => {
   console.log(error);
   li.textContent = `Failed to get data from server`;
@@ -34,13 +25,15 @@ const getData = async (api) => {
 };
 
 const displayItems = async (callBackFunction) => {
-  let res = await getData(
+  let response = await getData(
     "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
   );
-  if (res.data) {
-    callBackFunction(res.data);
+  if (response.data) {
+    callBackFunction(response.data);
   } else {
-    displayInfo("no data");
+    const li = document.createElement("li");
+    li.textContent = "No data available";
+    ul.appendChild(li);
   }
 };
 
