@@ -33,14 +33,14 @@ const getData = async (api) => {
   }
 };
 
-const displayItems = async (func) => {
+const displayItems = async (callBackFunction) => {
   let res = await getData(
     "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
   );
   if (res.data) {
-    func(res.data);
+    callBackFunction(res.data);
   } else {
-    return;
+    displayInfo("no data")
   }
 };
 
@@ -61,7 +61,7 @@ const activateFirstTab = () => {
   tabs[0].classList.add("active");
 };
 
-// this function will be modified to render articles, comment, image and icons. 
+// this function will be modified to render articles, comments, an image and icons. 
 const renderArticles = (items) => {
   const fragment = new DocumentFragment();
   const articleContainerDiv = document.createElement("div");
