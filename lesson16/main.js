@@ -44,7 +44,7 @@ const displayItems = async (callBackFunction) => {
   }
 };
 
-const renderTabs = (items) => {
+const createTabs = (items) => {
   ul.classList = "tab-menu";
   const fragment = new DocumentFragment();
   for (let item of items) {
@@ -62,7 +62,7 @@ const activateFirstTab = () => {
 };
 
 // this function will be modified to render articles, comments, an image and icons.
-const renderArticles = (items) => {
+const createArticles = (items) => {
   const fragment = new DocumentFragment();
   const articleContainerDiv = document.createElement("div");
   articleContainerDiv.classList.add("tab-box");
@@ -86,8 +86,8 @@ const removeClassList = (className, index) => {
 };
 
 const displayTabsAndContents = async () => {
-  await displayItems(renderTabs);
-  await displayItems(renderArticles);
+  await displayItems(createTabs);
+  await displayItems(createArticles);
 
   const listOfTabs = Array.from(tabs);
   const listOfContetns = Array.from(contetns);
