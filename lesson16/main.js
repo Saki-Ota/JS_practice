@@ -4,6 +4,16 @@ const li = document.createElement("li");
 const contetns = document.getElementsByClassName("tab-content");
 const tabs = document.getElementsByClassName("tab-item");
 
+const displayInfo = (info) => {
+  const li = document.createElement("li");
+  if (typeof info === "string") {
+    li.textContent = info;
+    ul.appendChild(li);
+    return console.log(info);
+  }
+  throw new Error("Please pass a string value");
+};
+
 const displayErrorInfo = (error) => {
   console.log(error);
   li.textContent = `Failed to get data from server`;
@@ -31,9 +41,7 @@ const checkResponse = async (callBackFunction) => {
   if (response.data) {
     callBackFunction(response.data);
   } else {
-    li.textContent = "No data available";
-    ul.appendChild(li);
-    console.log(response);
+    displayInfo("no data available");
   }
 };
 
