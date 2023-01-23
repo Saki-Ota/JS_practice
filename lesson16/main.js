@@ -24,16 +24,16 @@ const getData = async (api) => {
   }
 };
 
-const displayItems = async (callBackFunction) => {
+const checkResponse = async (callBackFunction) => {
   let response = await getData(
     "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
   );
   if (response.data) {
     callBackFunction(response.data);
   } else {
-    const li = document.createElement("li");
     li.textContent = "No data available";
     ul.appendChild(li);
+    console.log(response);
   }
 };
 
@@ -79,8 +79,8 @@ const removeClassList = (className, index) => {
 };
 
 const displayTabsAndContents = async () => {
-  await displayItems(createTabs);
-  await displayItems(createArticles);
+  await checkResponse(createTabs);
+  await checkResponse(createArticles);
 
   const listOfTabs = Array.from(tabs);
   const listOfContetns = Array.from(contetns);
