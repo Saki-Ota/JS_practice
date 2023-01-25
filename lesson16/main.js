@@ -1,7 +1,7 @@
 // json = https://mocki.io/v1/d3176c84-479a-47a3-a8b6-7d597b55d8b4
 const ul = document.getElementById("js-ul");
 const li = document.createElement("li");
-const contetns = document.getElementsByClassName("tab-content");
+const contents = document.getElementsByClassName("tab-content");
 const tabs = document.getElementsByClassName("tab-item");
 
 const displayInfo = (info) => {
@@ -38,74 +38,69 @@ const checkResponse = async (callBackFunction) => {
   let response = await getData(
     "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
   );
-  if (response.data) {
-    callBackFunction(response.data);
-  } else {
+  if (!response.data) {
     displayInfo("no data available");
-  }
+  } 
+  return response.data
 };
 
-const createTabs = (items) => {
+const renderTabs = (newsGenres) => {
   ul.classList = "tab-menu";
   const fragment = new DocumentFragment();
-  for (let item of items) {
+  for (const newsGenre of newsGenres) {
     const li = document.createElement("li");
-    li.textContent = item.category;
+    li.textContent = newsGenre.category;
     li.classList = "tab-item";
     fragment.appendChild(li);
   }
   ul.appendChild(fragment);
-  activateFirstTab();
-};
-
-const activateFirstTab = () => {
   tabs[0].classList.add("active");
 };
 
+
+
 // this function will be modified to render articles, comments, an image and icons.
-const createArticles = (items) => {
+const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
   const articleContainerDiv = document.createElement("div");
   articleContainerDiv.classList.add("tab-box");
-  for (let item of items) {
+  for (const newsGenre of newsGenres) {
     const article = document.createElement("div");
     article.classList.add("tab-content");
-    article.textContent = item.category;
+    article.textContent = newsGenre.category;
     fragment.appendChild(article);
   }
   articleContainerDiv.appendChild(fragment);
   ul.insertAdjacentElement("afterend", articleContainerDiv);
-  activateFirstArticleContent();
+  contents[0].classList.add("show");
 };
 
-const activateFirstArticleContent = () => {
-  contetns[0].classList.add("show");
-};
-
-const removeClassList = (className, index) => {
-  document.getElementsByClassName(className)[index].classList.remove(className);
-};
-
-const displayTabsAndContents = async () => {
-  await checkResponse(createTabs);
-  await checkResponse(createArticles);
-
-  const listOfTabs = Array.from(tabs);
-  const listOfContetns = Array.from(contetns);
+const displayTabsAndContents = () => {
+  const listOfTabs = [...tabs];
+  const listOfContents = [...contents];
 
   listOfTabs.forEach((tab) => {
-    tab.addEventListener("click", (e) => {
-      removeClassList("active", 0);
+    tab.addEventListener("click", () => {
+      document.getElementsByClassName("active")[0].classList.remove("active");
       tab.classList.add("active");
 
       const indexNumber = listOfTabs.findIndex((tabContent) =>
         tabContent.classList.contains("active")
       );
 
-      removeClassList("show", 0);
-      listOfContetns[indexNumber].classList.add("show");
+      document.getElementsByClassName("show")[0].classList.remove("show");
+      listOfContents[indexNumber].classList.add("show");
     });
   });
 };
 
-displayTabsAndContents();
+const init = async () => {
+  const result = await checkResponse();
+  if (result) {
+    renderTabs(result);
+    renderArticles(result);
+    displayTabsAndContents();
+  }
+}
+
+init();
