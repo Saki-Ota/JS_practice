@@ -63,7 +63,7 @@ const renderTabs = (newsGenres) => {
 const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
   const articleContainerDiv = document.createElement("div");
-  articleContainerDiv.classList.add("tab-box");
+  articleContainerDiv.classList.add("tab-content-box");
   for (const newsGenre of newsGenres) {
     const article = document.createElement("div");
     article.classList.add("tab-content");
