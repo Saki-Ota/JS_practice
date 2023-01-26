@@ -34,7 +34,7 @@ const getData = async (api) => {
   }
 };
 
-const checkResponse = async (callBackFunction) => {
+const checkResponse = async () => {
   let response = await getData(
     "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
   );
@@ -95,10 +95,10 @@ const displayTabsAndContents = () => {
 };
 
 const init = async () => {
-  const result = await checkResponse();
-  if (result) {
-    renderTabs(result);
-    renderArticles(result);
+  const newsGenres = await checkResponse();
+  if (newsGenres) {
+    renderTabs(newsGenres);
+    renderArticles(newsGenres);
     displayTabsAndContents();
   }
 }
