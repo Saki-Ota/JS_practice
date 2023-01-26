@@ -62,7 +62,7 @@ const renderTabs = (newsGenres) => {
 // this function will be modified to render articles, comments, an image and icons.
 const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
-  const articleContainerDiv = document.createElement("div");
+  const articleContainer = document.createElement("div");
   articleContainerDiv.classList.add("tab-content-box");
   for (const newsGenre of newsGenres) {
     const article = document.createElement("div");
@@ -70,7 +70,7 @@ const renderArticles = (newsGenres) => {
     article.textContent = newsGenre.category;
     fragment.appendChild(article);
   }
-  articleContainerDiv.appendChild(fragment);
+  articleContainer.appendChild(fragment);
   ul.insertAdjacentElement("afterend", articleContainerDiv);
   contents[0].classList.add("show");
 };
