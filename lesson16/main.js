@@ -63,7 +63,7 @@ const renderTabs = (newsGenres) => {
 const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
   const articleContainer = document.createElement("div");
-  articleContainerDiv.classList.add("tab-content-box");
+  articleContainer.classList.add("tab-content-box");
   for (const newsGenre of newsGenres) {
     const article = document.createElement("div");
     article.classList.add("tab-content");
@@ -71,7 +71,7 @@ const renderArticles = (newsGenres) => {
     fragment.appendChild(article);
   }
   articleContainer.appendChild(fragment);
-  ul.insertAdjacentElement("afterend", articleContainerDiv);
+  ul.insertAdjacentElement("afterend", articleContainer);
   contents[0].classList.add("show");
 };
 
