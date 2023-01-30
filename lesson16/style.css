@@ -12,17 +12,11 @@
     list-style: none;
   }
   
-  /* .tab {
-    width: 500px;
-    max-width: 100%;
-    margin: auto;
-  } */
-  
-  .tab-menu {
+  .js-tab-menu {
     display: flex;
   }
   
-  .tab-item {
+  .js-tab-item {
     text-align: center;
     padding: 10px 0;
     cursor: pointer;
@@ -36,17 +30,17 @@
     border-right: 1px solid skyblue;
   }
 
-  .tab-item:not(:first-child) {
+  .js-tab-item:not(:first-child) {
     border-left: none;
   }
   
   /* アクティブなタブはデザインを変えて選択中であることが解るようにする */
-  .tab-item.active {
+  .js-tab-item.active {
     background: red;
     color: white;
   }
   
-  .tab-content-box {
+  .js-tab-content-box {
     height: 200px;
     display: flex;
     /* justify-content: center;
@@ -55,12 +49,12 @@
   }
       
   /* コンテンツは原則非表示 */
-  .tab-content {
+  .js-tab-content {
     display: none;
     font-size: 40px;
   }
   
   /* .showがついたコンテンツのみ表示 */
-  .tab-content.show {
+  .js-tab-content.show {
     display: block;
   }

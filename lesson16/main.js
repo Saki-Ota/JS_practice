@@ -1,17 +1,17 @@
 // json = https://mocki.io/v1/d3176c84-479a-47a3-a8b6-7d597b55d8b4
 const ul = document.getElementById("js-ul");
 const li = document.createElement("li");
-const contents = document.getElementsByClassName("tab-content");
-const tabs = document.getElementsByClassName("tab-item");
+const contents = document.getElementsByClassName("js-tab-content");
+const tabs = document.getElementsByClassName("js-tab-item");
 
 const displayInfo = (info) => {
   const li = document.createElement("li");
-  if (typeof info === "string") {
-    li.textContent = info;
-    ul.appendChild(li);
-    return console.log(info);
+  if (typeof info !== "string") {
+    throw new Error("Please pass a string value");
   }
-  throw new Error("Please pass a string value");
+   li.textContent = info;
+   ul.appendChild(li);
+   return console.log(info);
 };
 
 const displayErrorInfo = (error) => {
@@ -45,16 +45,18 @@ const checkResponse = async () => {
 };
 
 const renderTabs = (newsGenres) => {
-  ul.classList = "tab-menu";
+  ul.classList = "js-tab-menu";
   const fragment = new DocumentFragment();
   for (const newsGenre of newsGenres) {
     const li = document.createElement("li");
     li.textContent = newsGenre.category;
-    li.classList = "tab-item";
+    li.classList = "js-tab-item";
     fragment.appendChild(li);
   }
   ul.appendChild(fragment);
-  tabs[0].classList.add("active");
+  if(tabs){
+    tabs[0].classList.add("active");
+  }
 };
 
 
@@ -63,16 +65,19 @@ const renderTabs = (newsGenres) => {
 const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
   const articleContainer = document.createElement("div");
-  articleContainer.classList.add("tab-content-box");
+  articleContainer.classList.add("js-tab-content-box");
   for (const newsGenre of newsGenres) {
     const article = document.createElement("div");
-    article.classList.add("tab-content");
+    article.classList.add("js-tab-content");
     article.textContent = newsGenre.category;
     fragment.appendChild(article);
   }
   articleContainer.appendChild(fragment);
   ul.insertAdjacentElement("afterend", articleContainer);
-  contents[0].classList.add("show");
+
+  if (contents) {
+    contents[0].classList.add("show");
+  }
 };
 
 const displayTabsAndContents = () => {
@@ -96,11 +101,12 @@ const displayTabsAndContents = () => {
 
 const init = async () => {
   const newsGenres = await checkResponse();
-  if (newsGenres) {
-    renderTabs(newsGenres);
-    renderArticles(newsGenres);
-    displayTabsAndContents();
+  if (!newsGenres) {
+    displayInfo('Something went wrong during fetching data. We are fixing the problem, please come back again')
   }
+  renderTabs(newsGenres);
+  renderArticles(newsGenres);
+  displayTabsAndContents();
 }
 
 init();
