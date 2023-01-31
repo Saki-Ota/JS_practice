@@ -1,4 +1,3 @@
-// json = https://mocki.io/v1/d3176c84-479a-47a3-a8b6-7d597b55d8b4
 const ul = document.getElementById("js-ul");
 const li = document.createElement("li");
 const contents = document.getElementsByClassName("js-tab-content");
