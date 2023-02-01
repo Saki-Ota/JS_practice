@@ -1,16 +1,14 @@
 const ul = document.getElementById("js-ul");
 const li = document.createElement("li");
-const contents = document.getElementsByClassName("js-tab-content");
-const tabs = document.getElementsByClassName("js-tab-item");
 
 const displayInfo = (info) => {
   const li = document.createElement("li");
   if (typeof info !== "string") {
     throw new Error("Please pass a string value");
   }
-   li.textContent = info;
-   ul.appendChild(li);
-   return console.log(info);
+  li.textContent = info;
+  ul.appendChild(li);
+  return console.log(info);
 };
 
 const displayErrorInfo = (error) => {
@@ -39,47 +37,52 @@ const checkResponse = async () => {
   );
   if (!response.data) {
     displayInfo("no data available");
-  } 
-  return response.data
+  }
+  return response.data;
 };
 
 const renderTabs = (newsGenres) => {
-  ul.classList = "js-tab-menu";
+  ul.classList = "tab-menu";
   const fragment = new DocumentFragment();
   for (const newsGenre of newsGenres) {
     const li = document.createElement("li");
     li.textContent = newsGenre.category;
-    li.classList = "js-tab-item";
+    li.classList = "tab-item";
+    li.setAttribute("data-item", "tab-item");
     fragment.appendChild(li);
   }
   ul.appendChild(fragment);
-  if(tabs){
-    tabs[0].classList.add("active");
+  const tabs = document.querySelectorAll('[data-item="tab-item"]');
+  if (tabs.length === 0) {
+    console.log('Failed to get [data-item="tab-item"]');
   }
+  tabs[0].classList.add("active");
 };
-
-
 
 // this function will be modified to render articles, comments, an image and icons.
 const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
   const articleContainer = document.createElement("div");
-  articleContainer.classList.add("js-tab-content-box");
+  articleContainer.classList.add("tab-content-box");
   for (const newsGenre of newsGenres) {
     const article = document.createElement("div");
-    article.classList.add("js-tab-content");
+    article.classList.add("tab-content");
+    article.setAttribute("data-content", "tab-content");
     article.textContent = newsGenre.category;
     fragment.appendChild(article);
   }
   articleContainer.appendChild(fragment);
   ul.insertAdjacentElement("afterend", articleContainer);
-
-  if (contents) {
-    contents[0].classList.add("show");
+  const contents = document.querySelectorAll('[data-content="tab-content"]');
+  if (contents.length === 0) {
+    console.log('Failed to get [data-content="tab-content"]');
   }
+  contents[0].classList.add("show");
 };
 
 const displayTabsAndContents = () => {
+  const contents = document.querySelectorAll('[data-content="tab-content"]');
+  const tabs = document.querySelectorAll('[data-item="tab-item"]');
   const listOfTabs = [...tabs];
   const listOfContents = [...contents];
 
@@ -101,11 +104,13 @@ const displayTabsAndContents = () => {
 const init = async () => {
   const newsGenres = await checkResponse();
   if (!newsGenres) {
-    displayInfo('Something went wrong during fetching data. We are fixing the problem, please come back again')
+    displayInfo(
+      "Something went wrong during fetching data. We are fixing the problem, please come back again"
+    );
   }
   renderTabs(newsGenres);
   renderArticles(newsGenres);
   displayTabsAndContents();
-}
+};
 
 init();
