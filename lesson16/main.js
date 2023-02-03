@@ -54,7 +54,7 @@ const renderTabs = (newsGenres) => {
   ul.appendChild(fragment);
   const tabs = document.querySelectorAll('[data-item="tab-item"]');
   if (tabs.length === 0) {
-    console.log('Failed to get [data-item="tab-item"]');
+    console.error('Failed to get [data-item="tab-item"]');
   }
   tabs[0].classList.add("active");
 };
@@ -75,7 +75,7 @@ const renderArticles = (newsGenres) => {
   ul.insertAdjacentElement("afterend", articleContainer);
   const contents = document.querySelectorAll('[data-content="tab-content"]');
   if (contents.length === 0) {
-    console.log('Failed to get [data-content="tab-content"]');
+    console.error('Failed to get [data-content="tab-content"]');
   }
   contents[0].classList.add("show");
 };
