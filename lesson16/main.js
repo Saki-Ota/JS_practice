@@ -59,7 +59,10 @@ const renderTabs = (newsGenres) => {
   tabs[0].classList.add("active");
 };
 
-// this function will be modified to render articles, comments, an image and icons.
+/**
+ * this function will be modified to render articles, comments, an image and icons.
+ * @param newsGenres
+ */
 const renderArticles = (newsGenres) => {
   const fragment = new DocumentFragment();
   const articleContainer = document.createElement("div");
