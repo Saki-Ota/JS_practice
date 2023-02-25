@@ -41,52 +41,18 @@ li {
 }
 
 .tab-content-box {
-  /* max-width: 800px; Add:　boxの大きさが大きすぎない方がいいですか？ */
-  padding: 20px 40px; /* Add:　すみません、適当な値です */
+  height: 200px;
+  display: flex;
   border: 1px solid skyblue;
 }
 
 /* コンテンツは原則非表示 */
 .tab-content {
   display: none;
-  width: 100%;
+  font-size: 40px;
 }
 
 /* .showがついたコンテンツのみ表示 */
 .tab-content.show {
   display: block;
 }
-
-
-.comment {
-  display: inline;
-}
-
-.fa-bell {
-  display: none;
-}
-
-/* new がついたアイコンを表示 */
-.fa-bell.new {
-  display: inline;
-}
-
-.picture-container img {
-  width: 150px;
-  height: 150px;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.articles-container {
-  /* width: 70%; */
-  flex: 1; /* Add:　imgが固定値なので、articlesの方が可変にしました */
-}
-
-
-
-
