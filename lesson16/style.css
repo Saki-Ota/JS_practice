@@ -41,18 +41,50 @@ li {
 }
 
 .tab-content-box {
-  height: 200px;
-  display: flex;
+  padding: 20px 40px; 
   border: 1px solid skyblue;
 }
 
 /* コンテンツは原則非表示 */
 .tab-content {
   display: none;
-  font-size: 40px;
+  width: 100%;
 }
 
 /* .showがついたコンテンツのみ表示 */
 .tab-content.show {
   display: block;
 }
+
+
+.comment {
+  display: inline;
+}
+
+.fa-bell {
+  display: none;
+}
+
+/* new がついたアイコンを表示 */
+.fa-bell.new {
+  display: inline;
+}
+
+.picture-container img {
+  width: 150px;
+  height: 150px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.articles-container {
+  flex: 1; 
+}
+
+
+
+

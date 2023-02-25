@@ -33,7 +33,7 @@ const getData = async (api) => {
 
 const checkResponse = async () => {
   let response = await getData(
-    "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
+    "https://mocki.io/v1/e8fda7fd-1994-44ea-8d5f-a2624a8f22cb"
   );
   if (!response.data) {
     displayInfo("no data available");
@@ -59,29 +59,69 @@ const renderTabs = (newsGenres) => {
   tabs[0].classList.add("active");
 };
 
-/**
- * this function will be modified to render articles, comments, an image and icons.
- * @param newsGenres
- */
-const renderArticles = (newsGenres) => {
+
+const renderContents = (newsGenres) => {
   const fragment = new DocumentFragment();
-  const articleContainer = document.createElement("div");
-  articleContainer.classList.add("tab-content-box");
+  const tabContentBox = document.createElement("div");
+  tabContentBox.classList.add("tab-content-box");
   for (const newsGenre of newsGenres) {
-    const article = document.createElement("div");
-    article.classList.add("tab-content");
-    article.setAttribute("data-content", "tab-content");
-    article.textContent = newsGenre.category;
-    fragment.appendChild(article);
+    // outer frame
+    const tabContent = document.createElement("div");
+    const flex = document.createElement("div");
+    const articlesContainer = document.createElement("div");
+    const articlesList = document.createElement("ul");
+
+    tabContent.classList.add("tab-content");
+    flex.classList.add("flex");
+    articlesContainer.classList.add("articles-container");
+
+    // article titles and comments (icon)
+    const articles = newsGenre.articles;
+    for (const article of articles) {
+      const articleTitle = document.createElement("li");
+      const comment = document.createElement("p");
+      comment.classList.add("comment");
+      comment.textContent = `  comment ${article.comments.length}`; // adjust padding with css later
+      articleTitle.textContent = article.title;
+
+      //   new icon
+      const date = new Date(article.date);
+      const today = new Date();
+      const newIcon = document.createElement("i");
+      newIcon.className = "fa-regular fa-bell";
+      if ((today - date) / (1000 * 60 * 60 * 24) < 4) {
+        newIcon.classList.add("new");
+        console.log(newIcon);
+      }
+      articlesList.appendChild(articleTitle).appendChild(comment).appendChild(newIcon)
+    }
+
+    // append article 
+    tabContent.setAttribute("data-content", "tab-content");
+    fragment
+      .appendChild(tabContent)
+      .appendChild(flex)
+      .appendChild(articlesContainer)
+      .appendChild(articlesList);
+
+    // image
+    const pictureContainer = document.createElement("div");
+    pictureContainer.classList.add("picture-container");
+    const image = document.createElement("img");
+    pictureContainer.appendChild(image);
+    image.src = newsGenre.img;
+    articlesContainer.insertAdjacentElement("afterend", pictureContainer);
   }
-  articleContainer.appendChild(fragment);
-  ul.insertAdjacentElement("afterend", articleContainer);
+
+  tabContentBox.appendChild(fragment);
+  ul.insertAdjacentElement("afterend", tabContentBox);
   const contents = document.querySelectorAll('[data-content="tab-content"]');
   if (contents.length === 0) {
     console.error('Failed to get [data-content="tab-content"]');
   }
   contents[0].classList.add("show");
 };
+
 
 const displayTabsAndContents = () => {
   const contents = document.querySelectorAll('[data-content="tab-content"]');
@@ -112,7 +152,7 @@ const init = async () => {
     );
   }
   renderTabs(newsGenres);
-  renderArticles(newsGenres);
+  renderContents(newsGenres);
   displayTabsAndContents();
 };
 
