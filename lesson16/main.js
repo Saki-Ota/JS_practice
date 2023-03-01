@@ -59,6 +59,50 @@ const renderTabs = (newsGenres) => {
   tabs[0].classList.add("active");
 };
 
+const createNewIcon = ({ date }) => {
+  const articleDate = new Date(date);
+  const today = new Date();
+  const newIcon = document.createElement("i");
+  const calculateToInteger = 1000 * 60 * 60 * 24;
+  newIcon.className = "fa-regular fa-bell";
+  if ((today - articleDate) / calculateToInteger < 4) {
+    newIcon.classList.add("new");
+    console.log(newIcon);
+  }
+  return newIcon;
+};
+
+const createComment = ({ comments }) => {
+  const comment = document.createElement("p");
+  comment.classList.add("comment");
+  comment.textContent = `comment ${comments.length}`;
+  return comment;
+};
+
+const createArticles = (articles) => {
+  const articlesList = document.createElement("ul");
+  for (const article of articles) {
+    const listItem = document.createElement("li");
+    const articleTitle = document.createElement("p");
+    articleTitle.className = "article-title";
+    articleTitle.textContent = article.title;
+    articlesList
+      .appendChild(listItem)
+      .appendChild(articleTitle)
+      .insertAdjacentElement("afterend", createComment(article))
+      .appendChild(createNewIcon(article));
+  }
+  return articlesList;
+};
+
+const createImage = ({ img }) => {
+  const pictureContainer = document.createElement("div");
+  pictureContainer.classList.add("picture-container");
+  const newsImage = document.createElement("img");
+  newsImage.src = img;
+  pictureContainer.appendChild(newsImage);
+  return pictureContainer;
+};
 
 const renderContents = (newsGenres) => {
   const fragment = new DocumentFragment();
@@ -69,48 +113,21 @@ const renderContents = (newsGenres) => {
     const tabContent = document.createElement("div");
     const flex = document.createElement("div");
     const articlesContainer = document.createElement("div");
-    const articlesList = document.createElement("ul");
 
     tabContent.classList.add("tab-content");
     flex.classList.add("flex");
     articlesContainer.classList.add("articles-container");
 
-    // article titles and comments (icon)
+    // create articles content and append them to outer outer layer
     const articles = newsGenre.articles;
-    for (const article of articles) {
-      const articleTitle = document.createElement("li");
-      const comment = document.createElement("p");
-      comment.classList.add("comment");
-      comment.textContent = `  comment ${article.comments.length}`; // adjust padding with css later
-      articleTitle.textContent = article.title;
-
-      //   new icon
-      const date = new Date(article.date);
-      const today = new Date();
-      const newIcon = document.createElement("i");
-      newIcon.className = "fa-regular fa-bell";
-      if ((today - date) / (1000 * 60 * 60 * 24) < 4) {
-        newIcon.classList.add("new");
-        console.log(newIcon);
-      }
-      articlesList.appendChild(articleTitle).appendChild(comment).appendChild(newIcon)
-    }
-
-    // append article 
     tabContent.setAttribute("data-content", "tab-content");
     fragment
       .appendChild(tabContent)
       .appendChild(flex)
       .appendChild(articlesContainer)
-      .appendChild(articlesList);
+      .appendChild(createArticles(articles));
 
-    // image
-    const pictureContainer = document.createElement("div");
-    pictureContainer.classList.add("picture-container");
-    const image = document.createElement("img");
-    pictureContainer.appendChild(image);
-    image.src = newsGenre.img;
-    articlesContainer.insertAdjacentElement("afterend", pictureContainer);
+    articlesContainer.insertAdjacentElement("afterend", createImage(newsGenre));
   }
 
   tabContentBox.appendChild(fragment);
@@ -121,7 +138,6 @@ const renderContents = (newsGenres) => {
   }
   contents[0].classList.add("show");
 };
-
 
 const displayTabsAndContents = () => {
   const contents = document.querySelectorAll('[data-content="tab-content"]');
