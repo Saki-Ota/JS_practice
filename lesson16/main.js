@@ -112,11 +112,11 @@ const renderContents = (newsGenres) => {
   for (const newsGenre of newsGenres) {
     // outer frame
     const tabContent = document.createElement("div");
-    const flex = document.createElement("div");
+    const articleAndPicureBox = document.createElement("div");
     const articlesContainer = document.createElement("div");
 
     tabContent.classList.add("tab-content");
-    flex.classList.add("flex");
+    articleAndPicureBox.classList.add("article-and-picture-box");
     articlesContainer.classList.add("articles-container");
 
     // create articles content and append them to outer outer layer
@@ -124,7 +124,7 @@ const renderContents = (newsGenres) => {
     tabContent.setAttribute("data-content", "tab-content");
     fragment
       .appendChild(tabContent)
-      .appendChild(flex)
+      .appendChild(articleAndPicureBox)
       .appendChild(articlesContainer)
       .appendChild(createArticles(articles));
 
