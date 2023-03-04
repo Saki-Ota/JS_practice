@@ -68,7 +68,6 @@ const createNewIcon = ({ date }) => {
   newIcon.className = "fa-regular fa-bell";
   if ((today - articleDate) / secondsADay < fourDays) {
     newIcon.classList.add("new");
-    console.log(newIcon);
   }
   return newIcon;
 };
