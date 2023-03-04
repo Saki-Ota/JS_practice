@@ -63,9 +63,10 @@ const createNewIcon = ({ date }) => {
   const articleDate = new Date(date);
   const today = new Date();
   const newIcon = document.createElement("i");
-  const calculateToInteger = 1000 * 60 * 60 * 24;
+  const secondsADay = 1000 * 60 * 60 * 24;
+  const fourDays = 4
   newIcon.className = "fa-regular fa-bell";
-  if ((today - articleDate) / calculateToInteger < 4) {
+  if ((today - articleDate) / secondsADay < fourDays) {
     newIcon.classList.add("new");
     console.log(newIcon);
   }
@@ -95,7 +96,7 @@ const createArticles = (articles) => {
   return articlesList;
 };
 
-const createImage = ({ img }) => {
+const createAndAppendImage = ({ img }) => {
   const pictureContainer = document.createElement("div");
   pictureContainer.classList.add("picture-container");
   const newsImage = document.createElement("img");
@@ -127,7 +128,7 @@ const renderContents = (newsGenres) => {
       .appendChild(articlesContainer)
       .appendChild(createArticles(articles));
 
-    articlesContainer.insertAdjacentElement("afterend", createImage(newsGenre));
+    articlesContainer.insertAdjacentElement("afterend", createAndAppendImage(newsGenre));
   }
 
   tabContentBox.appendChild(fragment);
