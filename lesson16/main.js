@@ -33,7 +33,7 @@ const getData = async (api) => {
 
 const checkResponse = async () => {
   let response = await getData(
-    "https://mocki.io/v1/40cbd0f7-2a64-4b95-a991-57ff982901a8"
+    "https://mocki.io/v1/e8fda7fd-1994-44ea-8d5f-a2624a8f22cb"
   );
   if (!response.data) {
     displayInfo("no data available");
@@ -59,23 +59,79 @@ const renderTabs = (newsGenres) => {
   tabs[0].classList.add("active");
 };
 
-/**
- * this function will be modified to render articles, comments, an image and icons.
- * @param newsGenres
- */
-const renderArticles = (newsGenres) => {
-  const fragment = new DocumentFragment();
-  const articleContainer = document.createElement("div");
-  articleContainer.classList.add("tab-content-box");
-  for (const newsGenre of newsGenres) {
-    const article = document.createElement("div");
-    article.classList.add("tab-content");
-    article.setAttribute("data-content", "tab-content");
-    article.textContent = newsGenre.category;
-    fragment.appendChild(article);
+const createNewIcon = ({ date }) => {
+  const articleDate = new Date(date);
+  const today = new Date();
+  const newIcon = document.createElement("i");
+  const secondsADay = 1000 * 60 * 60 * 24;
+  const fourDays = 4
+  newIcon.className = "fa-regular fa-bell";
+  if ((today - articleDate) / secondsADay < fourDays) {
+    newIcon.classList.add("new");
   }
-  articleContainer.appendChild(fragment);
-  ul.insertAdjacentElement("afterend", articleContainer);
+  return newIcon;
+};
+
+const createComment = ({ comments }) => {
+  const comment = document.createElement("p");
+  comment.classList.add("comment");
+  comment.textContent = `comment ${comments.length}`;
+  return comment;
+};
+
+const createArticles = (articles) => {
+  const articlesList = document.createElement("ul");
+  for (const article of articles) {
+    const listItem = document.createElement("li");
+    const articleTitle = document.createElement("p");
+    articleTitle.className = "article-title";
+    articleTitle.textContent = article.title;
+    articlesList
+      .appendChild(listItem)
+      .appendChild(articleTitle)
+      .insertAdjacentElement("afterend", createComment(article))
+      .appendChild(createNewIcon(article));
+  }
+  return articlesList;
+};
+
+const createAndAppendImage = ({ img }) => {
+  const pictureContainer = document.createElement("div");
+  pictureContainer.classList.add("picture-container");
+  const newsImage = document.createElement("img");
+  newsImage.src = img;
+  pictureContainer.appendChild(newsImage);
+  return pictureContainer;
+};
+
+const renderContents = (newsGenres) => {
+  const fragment = new DocumentFragment();
+  const tabContentBox = document.createElement("div");
+  tabContentBox.classList.add("tab-content-box");
+  for (const newsGenre of newsGenres) {
+    // outer frame
+    const tabContent = document.createElement("div");
+    const articleAndPicureBox = document.createElement("div");
+    const articlesContainer = document.createElement("div");
+
+    tabContent.classList.add("tab-content");
+    articleAndPicureBox.classList.add("article-and-picture-box");
+    articlesContainer.classList.add("articles-container");
+
+    // create articles content and append them to outer outer layer
+    const articles = newsGenre.articles;
+    tabContent.setAttribute("data-content", "tab-content");
+    fragment
+      .appendChild(tabContent)
+      .appendChild(articleAndPicureBox)
+      .appendChild(articlesContainer)
+      .appendChild(createArticles(articles));
+
+    articlesContainer.insertAdjacentElement("afterend", createAndAppendImage(newsGenre));
+  }
+
+  tabContentBox.appendChild(fragment);
+  ul.insertAdjacentElement("afterend", tabContentBox);
   const contents = document.querySelectorAll('[data-content="tab-content"]');
   if (contents.length === 0) {
     console.error('Failed to get [data-content="tab-content"]');
@@ -112,7 +168,7 @@ const init = async () => {
     );
   }
   renderTabs(newsGenres);
-  renderArticles(newsGenres);
+  renderContents(newsGenres);
   displayTabsAndContents();
 };
 

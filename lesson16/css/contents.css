@@ -1,0 +1,47 @@
+.tab-content-box {
+  padding: 20px 40px;
+  border: 1px solid skyblue;
+}
+
+.tab-content {
+  display: none;
+  width: 100%;
+}
+
+.tab-content.show {
+  display: block;
+}
+
+.fa-bell {
+  display: none;
+}
+
+.fa-bell.new {
+  display: inline;
+}
+
+.picture-container img {
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+}
+
+.article-and-picture-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.articles-container {
+  flex: 1;
+  padding: 20px;
+}
+
+.article-title{
+  padding-top: 10px;
+}
+
+.comment{
+ display: flex;
+ justify-content: flex-end;
+}

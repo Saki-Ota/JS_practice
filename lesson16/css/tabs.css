@@ -1,0 +1,22 @@
+.tab-menu {
+  display: flex;
+}
+
+.tab-item {
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  flex-grow: 1;
+  border-top: 1px solid skyblue;
+  border-left: 1px solid skyblue;
+  border-right: 1px solid skyblue;
+}
+
+.tab-item:not(:first-child) {
+  border-left: none;
+}
+
+.tab-item.active {
+  background: red;
+  color: white;
+}
